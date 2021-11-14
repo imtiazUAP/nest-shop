@@ -8,19 +8,19 @@ export class ProductsController {
     constructor(private readonly productsService: ProductsService) {}
 
     @Post()
-    addProduct(
+    async addProduct(
         //This is alternative way to describe all at once
         //@Body() completeBody: {title: string, description: string, price: number}
         @Body('title') prodTitle: string,
         @Body('description') prodDesc: string,
         @Body('price') prodPrice: number,
-        ): any {
-        const generatedId = this.productsService.insertProduct(
+        ) {
+        const generatedId = await this.productsService.insertProduct(
             prodTitle,
             prodDesc,
             prodPrice,
         );
-        return {id: generatedId};
+        return { id: generatedId };
     }
 
     @Get()
